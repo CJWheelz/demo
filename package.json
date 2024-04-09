@@ -1,0 +1,14 @@
+{
+  "name": "frontend-starterpack-cjwheelz",
+  "version": "1.0.0",
+  "description": "SA2",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "CJ Wheelan",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.2.8"
+  }
+}
