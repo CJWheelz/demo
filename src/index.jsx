@@ -5,11 +5,21 @@ import {
 } from 'react-router-dom';
 import './style.scss';
 
+import Counter from './components/counter';
+import Controls from './components/controls';
+
 function About(props) {
   return <div> All there is to know about me </div>;
 }
 function Welcome(props) {
-  return <div>Welcome</div>;
+  return (
+    <div>
+      <div>Welcome</div>
+
+      <Counter />
+      <Controls />
+    </div>
+  );
 }
 function Test(props) {
   const { id } = useParams();
