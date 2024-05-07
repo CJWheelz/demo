@@ -29,6 +29,7 @@
     "immer": "^10.0.4",
     "jquery": "^3.7.1",
     "lodash.debounce": "^4.0.8",
+    "openai": "^4.42.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.22.3",

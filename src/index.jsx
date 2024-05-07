@@ -5,8 +5,26 @@ import {
 } from 'react-router-dom';
 import './style.scss';
 
+import OpenAI from 'openai';
 import Counter from './components/counter';
 import Controls from './components/controls';
+
+const openai = new OpenAI({ apiKey: 'sk-proj-qfQNej1PltxUxhbXKHMVT3BlbkFJzhUgfPX0ttYX0ABt76ps', dangerouslyAllowBrowser: true });
+
+// async function main() {
+//   const image = await openai.images.generate({ prompt: 'A cute baby sea otter' });
+
+//   console.log(image.data);
+// }
+
+async function main() {
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'system', content: 'You are a helpful assistant.' }],
+    model: 'gpt-3.5-turbo',
+  });
+
+  console.log(completion.choices[0]);
+}
 
 function About(props) {
   return <div> All there is to know about me </div>;
@@ -15,6 +33,8 @@ function Welcome(props) {
   return (
     <div>
       <div>Welcome</div>
+
+      <button onClick={main} type="button">Generate</button>
 
       <Counter />
       <Controls />
