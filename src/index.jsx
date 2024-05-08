@@ -21,6 +21,7 @@ function Welcome(props) {
     setQuery(event.target.value);
   };
 
+  // GENERATE IMAGE
   async function generate() {
     setIsLoading(true);
 
@@ -35,6 +36,17 @@ function Welcome(props) {
 
     setIsLoading(false);
     setImgAddress(response.data[0].url);
+  }
+
+  // GENERATE TEXT RESPONSE
+  async function main() {
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: 'Who won the world series in 2020?' }],
+      model: 'gpt-3.5-turbo',
+    });
+
+    console.log(completion.choices[0].message.content);
   }
 
   function renderLoad() {
@@ -68,7 +80,7 @@ function Welcome(props) {
           </div>
 
           <div className="col-3">
-            <button onClick={generate} className="btn btn-primary" type="button">Generate</button>
+            <button onClick={generate} className="btn btn-primary" type="button">Generate Image</button>
           </div>
         </div>
       </div>
@@ -78,6 +90,9 @@ function Welcome(props) {
       { isLoading ? renderLoad() : <div />}
 
       <img src={imgAddress} alt="" />
+
+      <button onClick={main} className="btn btn-primary" type="button">Generate Text</button>
+
     </div>
   );
 }
