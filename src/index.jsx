@@ -39,6 +39,7 @@ function Welcome(props) {
   }
 
   // GENERATE TEXT RESPONSE
+  const [text, setText] = useState('');
   async function main() {
     const completion = await openai.chat.completions.create({
       messages: [{ role: 'system', content: 'You are a helpful assistant.' },
@@ -47,6 +48,7 @@ function Welcome(props) {
     });
 
     console.log(completion.choices[0].message.content);
+    setText(completion.choices[0].message.content);
   }
 
   function renderLoad() {
@@ -91,7 +93,11 @@ function Welcome(props) {
 
       <img src={imgAddress} alt="" />
 
+      <br />
+      <hr />
+
       <button onClick={main} className="btn btn-primary" type="button">Generate Text</button>
+      <p>{text}</p>
 
     </div>
   );
