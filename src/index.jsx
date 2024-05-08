@@ -56,7 +56,7 @@ function Welcome(props) {
       <div className="container">
         <div className="row align-items-end">
           <div className="col-6 align-self-end">
-            <input type="text" name="Query" value={query} placeholder="Enter Your Image Query Here" id="" onChange={onQueryChange} />
+            <input type="text" className="form-control" name="Query" value={query} placeholder="Enter Your Image Query Here" id="" onChange={onQueryChange} />
           </div>
 
           <div className="col-3 align-self-start">
