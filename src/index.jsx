@@ -4,7 +4,7 @@ import './style.scss';
 
 import OpenAI from 'openai';
 
-const key = 'API_KEY_HERE';
+const key = import.meta.env.VITE_OPENAI_API_KEY;
 
 const openai = new OpenAI({ apiKey: key, dangerouslyAllowBrowser: true });
 
