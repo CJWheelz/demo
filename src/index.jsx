@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.scss';
+// import require from 'dotenv';
 
 import OpenAI from 'openai';
 
-const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
+// require('dotenv').config();
+
+const openai = new OpenAI({ apiKey: process.env.API_KEY, dangerouslyAllowBrowser: true });
 
 // async function main() {
 //   const completion = await openai.chat.completions.create({
@@ -18,6 +21,7 @@ const openai = new OpenAI({ apiKey: 'sk-XcR4usdPpE9V9ilrXJvvT3BlbkFJfAFF5Bhif0ft
 function Welcome(props) {
   const [query, setQuery] = useState('');
   const [imgAddress, setImgAddress] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onQueryChange = (event) => {
     setQuery(event.target.value);
@@ -31,6 +35,8 @@ function Welcome(props) {
   // }
 
   async function generate3() {
+    setIsLoading(true);
+
     const response = await openai.images.generate({
       model: 'dall-e-3',
       prompt: query,
@@ -38,7 +44,31 @@ function Welcome(props) {
       size: '1024x1024',
     });
 
+    setIsLoading(false);
     setImgAddress(response.data[0].url);
+  }
+
+  // async function varyImage() {
+  //   const response = await openai.images.createVariation({
+  //     model: 'dall-e-2',
+  //     image: fs.createReadStream('images/photo.jpeg'),
+  //     n: 1,
+  //     size: '1024x1024',
+  //   });
+  //   image_url = response.data[0].url;
+  // }
+
+  function renderLoad() {
+    return (
+      <div>
+        <div className="spinner-border" role="status">
+          <span className="sr-only" />
+        </div>
+        <p>
+          Loading ...
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -47,7 +77,9 @@ function Welcome(props) {
 
       <input type="text" name="Query" value={query} placeholder="Enter Your Image Query Here" id="" onChange={onQueryChange} />
 
-      <button onClick={generate3} type="button">Generate</button>
+      <button onClick={generate3} className="btn btn-primary" type="button">Generate</button>
+      <br />
+      { isLoading ? renderLoad() : <div />}
 
       <img src={imgAddress} alt="" />
     </div>
