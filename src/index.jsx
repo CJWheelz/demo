@@ -40,10 +40,14 @@ function Welcome(props) {
 
   // GENERATE TEXT RESPONSE
   const [text, setText] = useState('');
+  const [textQuery, setTextQuery] = useState('');
+  const onTextQueryChange = (event) => {
+    setTextQuery(event.target.value);
+  };
   async function main() {
     const completion = await openai.chat.completions.create({
       messages: [{ role: 'system', content: 'You are a helpful assistant.' },
-        { role: 'user', content: 'Who won the world series in 2020?' }],
+        { role: 'user', content: textQuery }],
       model: 'gpt-3.5-turbo',
     });
 
@@ -96,8 +100,19 @@ function Welcome(props) {
       <br />
       <hr />
 
-      <button onClick={main} className="btn btn-primary" type="button">Generate Text</button>
-      <p>{text}</p>
+      <div className="container">
+        <div className="row align-items-end">
+          <div className="col-6">
+            <input type="text" className="form-control" name="Query" value={textQuery} placeholder="Enter Your Text Query Here" id="" onChange={onTextQueryChange} />
+          </div>
+          <div className="col-4">
+            <button onClick={main} className="btn btn-primary" type="button">Generate Text</button>
+          </div>
+        </div>
+        <br />
+        <p>{text}</p>
+
+      </div>
 
     </div>
   );
